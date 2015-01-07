@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <script type="application/dart" src="test_form_field.dart"></script>
+  </head>
+  <body>
+    <h1>Input elements</h1>
+    <input id="disabled_field" name="disabled_field" disabled>
+    <input id="invalid_field" type="email" value="abcdef">
+    
+    <input id="unnamed_input">
+    
+    <input id="submit_field" name="submit_field" type="submit">
+    <input id="reset_field" name="reset_field" type="reset">
+    <input id="button_field" name="button_field" type="button" value="false">
+    
+    <input id="text_field" name="text_field" value="hello world">
+    <input id="color_field" name="color_field" type="color" value="black">
+    
+    
+    <input id="email_field" name="email_field" type="email" value="test@user.com">
+    <input id="password_field" name="password_field" type="password" value="password">
+    <input id="date_field" name="date_field" type="date" value="2014-05-01">
+    <!-- 
+        Doesn't work.
+        <input id="datetime_field" name="datetime_field" type="datetime">
+    -->
+    <input id="datetime_local_field" name="datetime_local_field" type="datetime-local">
+    <input id="month_field" name="month_field" type="month" value="2014-01">
+    <input id="week_field" name="week_field" type="week" value="2014-W01">
+  
+    <input id="number_field" name="number_field" type="number" value="14.01">
+    
+    <input id="checkbox_field" name="checkbox_field" type="checkbox" checked>
+    <input id="checkbox_unchecked" name="checkbox_unchecked" type="checkbox">
+    
+    <input id="radio1" name="radio_field" type="radio" checked>
+    <input id="radio2" name="radio_field" type="radio">
+    <input id="file_field" name="file_field" type="file">
+    <hr />
+    
+    <h1>Select elements</h1>
+    <select id="select_with_value" name="select_field" >
+      <option value="value" selected>Option 1</option>
+    </select>
+    
+    <select id="select_no_value" name="select_no_value_field">
+      <option selected>Option 1</option>
+    </select>
+    
+    <select id="select_multiple" name="select_multiple_field" multiple>
+      <option value="value1" selected>Option 1</option>
+      <option value="value2" selected>Option 2</option>
+      <option value="value3">Option 3</option>
+    </select>
+    
+    <select id="select_no_selection" name="select_no_selection" multiple>
+      <option value="not_selected">Not selected</option>
+    </select>
+    
+    <select id="disabled_select" name="disabled_select" disabled>
+      <option value="value1">Option</option>
+    </select>
+    
+    <hr />
+    <h1>Textarea elements</h1>
+    <textarea id="textarea_field" name="textarea_field">Lorem ipsum dolor amet</textarea>
+  </body>
+</html>

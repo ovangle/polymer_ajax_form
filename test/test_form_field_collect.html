@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="import" href="packages/polymer/polymer.html">
+    <link rel="import" href="elements/input_shadower.html">
+    <script type="application/dart" src="test_form_field_collect.dart"></script>
+  </head>
+  <body>
+    <div id="collection_tests" unresolved>
+      <h1>Collection tests</h1>
+      
+      <input name="collected">
+      
+      <input name="disabled_not_collected" disabled>
+      <input name="invalid_not_collected" type="email" value="abcdef">
+      
+      <div>
+        <input name="nested_field">
+      </div>
+      
+      <fieldset id="enabled_fieldset">
+        <input name="fieldset_collected1">
+      </fieldset>
+      <fieldset id="disabled_fieldset" disabled>
+        <legend>
+          <input name="fieldset_collected2">
+        </legend>
+        <input name="fieldset_not_collected">
+      </fieldset>
+      
+      <datalist>
+        <input name="datalist_not_collected">
+      </datalist>
+      
+      <input-shadower2>
+        <input name="light_dom_distributed_node">
+        <select name="light_dom_selected_distributed_node">
+          <option>Option 1</option>
+        </select>
+      </input-shadower2>
+      
+    </div>
+  </body>
+</html>

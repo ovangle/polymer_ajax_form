@@ -1,0 +1,8 @@
+# Dart ignores
+.pub
+packages
+
+# Eclipse ignores
+.project
+.settings
+

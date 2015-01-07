@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<link rel="import" href="../../packages/polymer/polymer.html">
+
+<script type="application/dart" src="input_shadower.dart"></script>  
+
+<polymer-element name="input-shadower">
+  <template>
+    <input name="shadowed_input_distributed_node">
+    <content></content>
+  </template>
+</polymer-element>
+
+<polymer-element name="input-shadower2" extends="input-shadower">
+  <template>
+    <input name="shadowed_input">
+    <shadow></shadow>
+    <content select="select"></content>
+  </template>
+</polymer-element>

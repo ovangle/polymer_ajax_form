@@ -1,0 +1,17 @@
+name: polymer_ajax_form
+version: 0.1.0
+author: Thomas Stephenson <ovangle@gmail.com>
+description: A sample web application
+dependencies:
+  browser: any
+  core_elements: any
+  http: any
+  polymer: any
+  quiver: any
+dev_dependencies:
+  unittest: any
+  shelf: any
+transformers:
+- polymer:
+    entry_points:
+      - test/test_form_field_collect.html

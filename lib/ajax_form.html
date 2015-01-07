@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/core_elements/core_ajax_dart.html">
+
+<polymer-element name="ajax-form" extends="form" attributes="action method enctype headers progress handleAs">
+  <template>
+    <core-ajax-dart url="{{action}}"
+               handleAs="{{handleAs}}"
+               headers="{{headers}}">
+    </core-ajax-dart>
+    <content></content>
+  </template>
+  <script type="application/dart" src="ajax_form.dart"></script>
+</polymer-element>
