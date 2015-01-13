@@ -19,9 +19,9 @@ typedef BaseRequest _REQUEST_FACTORY(Iterable<FormField> fields);
 
 @CustomTag('ajax-form')
 class AjaxFormElement extends FormElement with Polymer, Observable {
-// TODO:
-// - bind to <input type=submit> elements
-// -
+  // TODO:
+  // - bind to <input type=submit> elements
+
   static final _VALID_ENCTYPES = <String, _REQUEST_FACTORY>{
       'application/x-www-form-urlencoded': (fields) => new UrlencodedRequest(fields),
       'multipart/form-data': (fields) => new MultipartRequest(fields),
@@ -33,8 +33,9 @@ class AjaxFormElement extends FormElement with Polymer, Observable {
   static const _ajaxFormError = const EventStreamProvider('ajax-form-error');
   static const _ajaxFormComplete = const EventStreamProvider('ajax-form-complete');
 
-  Stream<CustomEvent> get onAjaxFormResponse => _ajaxFormResponse.forElement(this);
-  Stream<CustomEvent> get onAjaxFormError => _ajaxFormError.forElement(this);
+  Stream<CustomEvent> get onFormResponse => _ajaxFormResponse.forElement(this);
+  Stream<CustomEvent> get onFormError => _ajaxFormError.forElement(this);
+  /// An error handler
   Stream<CustomEvent> get onFormComplete => _ajaxFormComplete.forElement(this);
 
   /// The URI of a program that processes the form information.
@@ -64,9 +65,6 @@ class AjaxFormElement extends FormElement with Polymer, Observable {
     }
   }
 
-  @ComputedProperty('ajax.progress')
-  CoreAjaxProgress progress;
-
   /// Headers to be passed to the ajax request.
   /// headers associated with the content type of the request are added
   /// automatically.
@@ -82,11 +80,13 @@ class AjaxFormElement extends FormElement with Polymer, Observable {
   set handleAs(String value) => writeValue(#handleAs, value);
 
   ContentElement get _content => shadowRoot.querySelector('content');
-  CoreAjax get _ajax => shadowRoot.querySelector('core-ajax');
+  CoreAjax get _ajax => shadowRoot.querySelector('core-ajax-dart');
 
   PathObserver _inputObserver;
 
-  AjaxFormElement.created(): super.created();
+  AjaxFormElement.created(): super.created() {
+    polymerCreated();
+  }
 
   void attached() {
     _ajax.onCoreResponse.listen((evt) {
