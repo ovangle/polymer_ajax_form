@@ -53,9 +53,6 @@ class FormField {
     if (element is ContentElement) {
       // The distributed nodes of a Content element exist in the light DOM,
       // so the [:root:] of the element must be `null`.
-      print('${element.getDistributedNodes()
-                .where((node) => node is Element)
-                .map((node) => node.name)}');
       return element.getDistributedNodes()
           .where((node) => node is Element)
           .expand((elem) => collectFields(elem));
