@@ -6,6 +6,7 @@
 <polymer-element name="ajax-form" extends="form" attributes="action method enctype headers progress handleAs">
   <template>
     <core-ajax-dart url="{{action}}"
+               method="{{method}}"
                handleAs="{{handleAs}}"
                headers="{{headers}}">
     </core-ajax-dart>
