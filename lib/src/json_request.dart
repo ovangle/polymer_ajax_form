@@ -1,6 +1,7 @@
 library ajax_form.json_request;
 
 import 'dart:async';
+import 'dart:convert' show JSON;
 import 'dart:html';
 
 import 'package:crypto/crypto.dart' show CryptoUtils;
@@ -39,7 +40,7 @@ class JsonRequest extends BaseRequest {
       return getFieldValue(field).then((value) {
         step.setValue(result, value);
       });
-    }).then((_) => result);
+    }).then((_) => JSON.encode(result));
   }
 
   @override
