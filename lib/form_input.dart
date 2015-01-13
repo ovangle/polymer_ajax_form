@@ -21,7 +21,7 @@ abstract class FormInput implements Polymer, Observable {
   /// implementation which encodes all information about the object.
   @published
   dynamic get value => readValue(#name);
-  set value(String value) => writeValue(#value, value);
+  set value(var value) => writeValue(#value, value);
 
   /// Whether the form is currently disabled
   @published
@@ -30,10 +30,12 @@ abstract class FormInput implements Polymer, Observable {
 
   /// The message associated with an invalid input. Should be `null`.
   /// iff [:!formInput.valid:]
-  @observable
-  String validationMessage = null;
+  @published
+  String get validationMessage => readValue(#validationMessage);
+  set validationMessage(String value) => writeValue(#validationMessage, value);
 
   /// `true` if the [FormInput] is valid.
-  @observable
-  bool valid = true;
+  @published
+  bool get valid => readValue(#valid, () => true);
+  set valid(bool value) => writeValue(#valid, value);
 }
