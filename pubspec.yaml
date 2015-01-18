@@ -1,5 +1,5 @@
 name: polymer_ajax_form
-version: 0.2.0
+version: 0.2.1
 author: Thomas Stephenson <ovangle@gmail.com>
 description: Submit custom polymer(.dart) elements using forms.
 homepage: https://github.com/ovangle/polymer_ajax_form
