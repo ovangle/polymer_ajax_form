@@ -20,7 +20,7 @@ abstract class FormInput implements Polymer, Observable {
   /// Should be a primitive value (num, string, bool etc) or have a `toString`
   /// implementation which encodes all information about the object.
   @published
-  dynamic get value => readValue(#name);
+  dynamic get value => readValue(#value);
   set value(var value) => writeValue(#value, value);
 
   /// Whether the form is currently disabled
