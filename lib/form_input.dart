@@ -38,4 +38,13 @@ abstract class FormInput implements Polymer, Observable {
   @published
   bool get valid => readValue(#valid, () => true);
   set valid(bool value) => writeValue(#valid, value);
+
+  //TODO: Check required [FormInput]s
+  @published
+  bool get required => readValue(#required, () => false);
+  set required(bool value) => writeValue(#required, value);
+
+  @published
+  String get placeholder => readValue(#placeholder, () => '');
+  set placeholder(String value) => writeValue(#placeholder, value);
 }
