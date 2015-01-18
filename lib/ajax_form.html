@@ -3,11 +3,11 @@
 <link rel="import" href="../../packages/polymer/polymer.html">
 <link rel="import" href="../../packages/core_elements/core_ajax_dart.html">
 
-<polymer-element name="ajax-form" extends="form" attributes="action method enctype headers progress handleAs">
+<polymer-element name="ajax-form" extends="form" attributes="action method enctype headers">
   <template>
     <core-ajax-dart url="{{action}}"
                method="{{method}}"
-               handleAs="{{handleAs}}"
+               handleAs="arraybuffer"
                headers="{{headers}}">
     </core-ajax-dart>
     <content></content>
