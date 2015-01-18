@@ -1,7 +1,9 @@
 library ajax_form;
 
 import 'dart:async';
+import 'dart:convert' show JSON, UTF8;
 import 'dart:html';
+import 'dart:typed_data';
 
 import 'package:polymer/polymer.dart';
 import 'package:core_elements/core_ajax_dart.dart';
@@ -116,7 +118,14 @@ class FormResponse {
   int get status => xhr.status;
 
   /// The body of the response as a list of bytes.
-  List<int> get content => xhr.response;
+  List<int> get content => (xhr.response as ByteBuffer).asUint8List();
+
+  /// The response text. Assumes that the content is encoded as a UTF8 array
+  String get responseText => UTF8.decode(content);
+
+  /// The json body of the response (if the body was encoded as json).
+  /// Otherswise raises an exception
+  Map<String,dynamic> get responseJson => JSON.decode(responseText);
 
   Map<String,String> _headers;
   Map<String,String> get headers {
