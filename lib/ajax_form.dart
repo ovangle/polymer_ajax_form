@@ -15,8 +15,6 @@ import 'src/json_request.dart';
 typedef BaseRequest _REQUEST_FACTORY(Iterable<FormField> fields);
 
 
-
-
 @CustomTag('ajax-form')
 class AjaxFormElement extends FormElement with Polymer, Observable {
   // TODO:
@@ -30,13 +28,10 @@ class AjaxFormElement extends FormElement with Polymer, Observable {
 
 
   static const _ajaxFormResponse = const EventStreamProvider('ajax-form-response');
-  static const _ajaxFormError = const EventStreamProvider('ajax-form-error');
-  static const _ajaxFormComplete = const EventStreamProvider('ajax-form-complete');
 
+  /// An event emitted when the form has received a response.
+  /// The [:detail:] of the response event is always a [:FormResponse:] object.
   Stream<CustomEvent> get onFormResponse => _ajaxFormResponse.forElement(this);
-  Stream<CustomEvent> get onFormError => _ajaxFormError.forElement(this);
-  /// An error handler
-  Stream<CustomEvent> get onFormComplete => _ajaxFormComplete.forElement(this);
 
   /// The URI of a program that processes the form information.
   @published
@@ -72,12 +67,15 @@ class AjaxFormElement extends FormElement with Polymer, Observable {
   Map<String,String> get headers => readValue(#headers, () => <String,String>{});
   set headers(Map<String,String> value) => writeValue(#headers, value);
 
-  /// Specifies what data to store in the response properties.
-  /// Accepted values are the same as for the [:core-ajax:] element
-  /// from the [:core_elements:] package
+  ///
+  /// The [FormResponse] which was returned the last time the
+  /// request was submitted
+  ///
   @published
-  String get handleAs => readValue(#handleAs, () => 'text');
-  set handleAs(String value) => writeValue(#handleAs, value);
+  FormResponse get response => readValue(#response);
+  set response(FormResponse value) => writeValue(#response, value);
+
+
 
   ContentElement get _content => shadowRoot.querySelector('content');
   CoreAjax get _ajax => shadowRoot.querySelector('core-ajax-dart');
@@ -88,19 +86,7 @@ class AjaxFormElement extends FormElement with Polymer, Observable {
     polymerCreated();
   }
 
-  void attached() {
-    _ajax.onCoreResponse.listen((evt) {
-      this.fire('ajax-form-response', detail: evt.detail);
-    });
-    _ajax.onCoreError.listen((evt) {
-      this.fire('ajax-form-error', detail: evt.detail);
-    });
-    _ajax.onCoreComplete.listen((evt) {
-      this.fire('ajax-form-complete', detail: evt.detail);
-    });
-  }
-
-  Future<HttpRequest> submit() {
+  Future<FormResponse> submit() {
     return new Future.value().then((_) {
       var request = _VALID_ENCTYPES[enctype](_formInputs);
       return request.getBody().then((body) {
@@ -109,7 +95,11 @@ class AjaxFormElement extends FormElement with Polymer, Observable {
 
         _ajax.headers = headers;
         _ajax.body = body;
-        return _ajax.go();
+        return _ajax.go().onLoad.first.then((evt) {
+          var response = new FormResponse(evt.target);
+          this.fire('ajax-form-response', detail: response);
+          return response;
+        });
       });
     });
   }
@@ -117,5 +107,28 @@ class AjaxFormElement extends FormElement with Polymer, Observable {
   Iterable<FormField> get _formInputs =>
       shadowRoot.children.expand(FormField.collectFields);
 
+}
+
+class FormResponse {
+  /// The underlying [HttpRequest].
+  final HttpRequest xhr;
+
+  int get status => xhr.status;
+
+  /// The body of the response as a list of bytes.
+  List<int> get content => xhr.response;
+
+  Map<String,String> _headers;
+  Map<String,String> get headers {
+    // HttpRequest parses the headers each time.
+    // parse once and cache the result.
+    if (_headers == null) {
+      _headers = new Map.from(xhr.responseHeaders);
+    }
+    return _headers;
+
+  }
+
+  FormResponse(this.xhr);
 }
 
