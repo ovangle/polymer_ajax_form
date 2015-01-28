@@ -10,7 +10,7 @@ void main() {
   group("utils", () {
     test("read file", () {
       var blob = new Blob(['hello world']);
-      readFile(blob).then((body) {
+      return readFile(blob).then((body) {
         expect(UTF8.decode(body), 'hello world');
       });
     });
