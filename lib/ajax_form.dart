@@ -21,6 +21,8 @@ typedef BaseRequest _REQUEST_FACTORY(Iterable<FormField> fields);
 class AjaxFormElement extends FormElement with Polymer, Observable {
   // TODO:
   // - bind to <input type=submit> elements
+  // - shouldn't use <core-ajax> element
+  // - shouldn't directly extend <form> element (as #action attribute binding is dodgy)
 
   static final _VALID_ENCTYPES = <String, _REQUEST_FACTORY>{
       'application/x-www-form-urlencoded': (fields) => new UrlencodedRequest(fields),
