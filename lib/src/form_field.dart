@@ -142,7 +142,7 @@ _inputElementValue(InputElement element) {
       return element.files;
     case 'radio':
     case 'checkbox':
-      return element.checked ? element.value : null;
+      return element.checked;
     case 'number':
     case 'range':
       if (element.value == null || element.value.isEmpty)
